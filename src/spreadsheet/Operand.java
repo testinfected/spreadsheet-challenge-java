@@ -39,7 +39,7 @@ public class Operand extends Symbol {
     }
 
     public String toLiteral() {
-        return value.stripTrailingZeros().toString();
+        return value.stripTrailingZeros().toPlainString();
     }
 
     public Operand dividedBy(Operand divisor) {
@@ -47,6 +47,6 @@ public class Operand extends Symbol {
     }
 
     public void accept(SymbolProcessor processor) {
-        processor.visitOperand(this);
+        processor.processOperand(this);
     }
 }

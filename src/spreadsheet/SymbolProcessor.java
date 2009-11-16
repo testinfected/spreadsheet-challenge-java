@@ -2,7 +2,12 @@ package spreadsheet;
 
 public interface SymbolProcessor {
 
-    void visitOperator(Operator operator);
+    void processOperator(Operator operator);
 
-    void visitOperand(Operand operand);
+    void processOperand(Operand operand);
+
+    void processOpeningSymbol(Symbol opening);
+
+    void processClosingSymbol(SymbolMatcher terminator);
 }
+

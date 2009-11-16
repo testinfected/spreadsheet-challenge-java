@@ -9,28 +9,17 @@ public abstract class Operator extends Symbol {
         this.precedence = precedence;
     }
 
-    public boolean hasPrecedenceOver(Operator other) {
-        return precedence() > other.precedence();
-    }
-
-    public int precedence() {
-        return precedence;
-    }
-
     public void accept(SymbolProcessor processor) {
-        processor.visitOperator(this);
+        processor.processOperator(this);
     }
 
     public String toLiteral() {
-        return getSign();
-    }
-
-    public boolean symbolIs(String symbol) {
-        return sign.equals(symbol);
-    }
-
-    public String getSign() {
         return sign;
+    }
+
+    @Override
+    public int precedence() {
+        return precedence;
     }
 
     public abstract Operand perform(Operand first, Operand second);

@@ -13,14 +13,20 @@ public class PostfixEvaluator implements SymbolProcessor {
         return evaluator.done();
     }
 
-    public void visitOperator(Operator operator) {
+    public void processOperator(Operator operator) {
         final Operand secondOperand = (Operand) resultStack.pollFirst();
         final Operand firstOperand = (Operand) resultStack.pollFirst();
         resultStack.addFirst(operator.perform(firstOperand, secondOperand));
     }
 
-    public void visitOperand(Operand operand) {
+    public void processOperand(Operand operand) {
         resultStack.addFirst(operand);
+    }
+
+    public void processOpeningSymbol(Symbol opening) {
+    }
+
+    public void processClosingSymbol(SymbolMatcher terminator) {
     }
 
     private Symbol done() {

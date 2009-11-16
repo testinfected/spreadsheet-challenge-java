@@ -7,7 +7,7 @@ public class LeftToRightExpression implements Expression {
     public final List<Symbol> symbols = new ArrayList<Symbol>();
 
     public static LeftToRightExpression infix(String infixExpression) {
-        StringTokenizer tokenizer = new StringTokenizer(infixExpression, Symbol.operatorSigns(), true);
+        StringTokenizer tokenizer = new StringTokenizer(infixExpression, Symbol.allSigns(), true);
         LeftToRightExpression expression = LeftToRightExpression.empty();
         while (tokenizer.hasMoreTokens()) {
             expression.add(Symbol.parse(tokenizer.nextToken()));

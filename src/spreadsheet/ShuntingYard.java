@@ -16,14 +16,26 @@ public class ShuntingYard implements SymbolProcessor {
         return shuntingYard.done();
     }
 
-    public void visitOperator(Operator operator) {
-        if (!operatorStack.isEmpty() && !operator.hasPrecedenceOver((Operator) operatorStack.peekFirst()))
+    public void processOperator(Operator operator) {
+        if (!operatorStack.isEmpty() && !operator.hasPrecedenceOver(operatorStack.peekFirst()))
             outputQueue.add(operatorStack.pollFirst());
         operatorStack.addFirst(operator);
     }
 
-    public void visitOperand(Operand operand) {
+    public void processOperand(Operand operand) {
         outputQueue.add(operand);
+    }
+
+    public void processOpeningSymbol(Symbol opener) {
+        operatorStack.addFirst(opener);
+    }
+
+    public void processClosingSymbol(SymbolMatcher terminator) {
+        while (!operatorStack.isEmpty()) {
+            Symbol next = operatorStack.pollFirst();
+            if (terminator.matches(next)) break;
+            outputQueue.add(next);
+        }
     }
 
     public Expression done() {
